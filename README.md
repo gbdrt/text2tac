@@ -1,4 +1,4 @@
-# graph2tac
+# text2tac
 graph2tac converts graphs to tactics
 
 # prerequisites on Linux
