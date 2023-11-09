@@ -22,7 +22,7 @@ setup(
                   ]},
     license='MIT',
     install_requires=[
-        'pytact',
+        'pytactician',
         'tqdm',
         'numpy',
         'fire',
