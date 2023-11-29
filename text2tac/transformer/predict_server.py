@@ -160,7 +160,7 @@ def text_prediction_loop(context : GlobalContextMessage, generate_args):
             alignment = CheckAlignmentResponse([], [])
             prediction_requests.send(alignment)
         elif isinstance(msg, GlobalContextMessage):
-            text_prediction_loop(msg)
+            text_prediction_loop(msg, generate_args)
         else:
             raise Exception("Capnp protocol error")
 
