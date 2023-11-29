@@ -286,7 +286,7 @@ def main():
 
     tokenizer, model = load_eval_setup(tokenizer_location, model_location, truncate_side, args.dev, emb_size, n_layers)
 
-    generate_args = (tokenizer, model, args.device, sampling_on, beam_w, topk, temperature, logspace, log_base)
+    generate_args = (tokenizer, model, args.dev, sampling_on, beam_w, topk, temperature, logspace, log_base)
 
     if args.record_file is not None:
         record_context = open(args.record_file, 'wb')
