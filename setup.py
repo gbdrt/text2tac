@@ -35,7 +35,7 @@ setup(
         'datasets',
         'tokenizers',
         'tqdm',
-        'torch',
+        'torch==1.12.0',
         'numpy',
         'pandas',
     ]
