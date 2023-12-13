@@ -296,7 +296,7 @@ def main():
         if args.tcp != 0:
             class Handler(socketserver.BaseRequestHandler):
                 def handle(self):
-                    run_session(args, self.request, record_file)
+                    run_session(args, self.request, record_file, generate_args)
             class Server(socketserver.ThreadingTCPServer):
                 def __init__(self, *kwargs):
                     self.allow_reuse_address = True
