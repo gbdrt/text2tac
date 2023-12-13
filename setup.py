@@ -1,14 +1,5 @@
-from pathlib import Path
-import sys
-import setuptools
 from setuptools import find_packages, setup
-from setuptools.command.build_ext import build_ext
-import subprocess
 
-# These next three lines fetch and import numpy, which is needed for installation
-import setuptools.dist
-setuptools.dist.Distribution().fetch_build_eggs(['Cython>=0.15.1', 'numpy>=1.10'])
-import numpy
 
 setup(
     name='text2tac',
