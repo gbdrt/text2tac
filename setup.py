@@ -7,7 +7,7 @@ setup(
     version='0.1.0',
     description='text2tac converts text to actions',
     author='Jelle Piepenbrock, Lasse Blaauwbroek, Mirek Olsak, Vasily Pestun, Jason Rute, Fidel I. Schaposnik Massolo',
-    python_requires='>=3.9',
+    python_requires='3.10',
     entry_points={'console_scripts':                  [
                       'text2tac-server=text2tac.transformer.predict_server:main',
                   ]},
