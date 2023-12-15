@@ -164,50 +164,13 @@ def text_prediction_loop(context : GlobalContextMessage, generate_args):
         else:
             raise Exception("Capnp protocol error")
 
-def graph_initialize_loop(context : GlobalContextMessage, level):
-    print(f"level {level}")
-    for cluster in context.definitions.clustered_definitions(full = False):
-        print('cluster:')
-        for d in cluster:
-            print(f'    {d.name}')
-    for t in context.tactics:
-        print(t)
-    print(context.log_annotation)
-    prediction_requests = context.prediction_requests
-    cool_definitions = [ d.node for d in context.definitions.definitions() if d.name == "Coq.Init.Logic.I" ]
-    zeroArgs = [t.ident for t in context.tactics if t.parameters == 0]
-    oneArg = [t.ident for t in context.tactics if t.parameters == 1]
-    for msg in prediction_requests:
-        if isinstance(msg, ProofState):
-            proof_state = msg
-            gv.visualize_proof_state(proof_state)
-            preds = [TacticPredictionGraph(t, [], 0.5) for t in zeroArgs]
-            if len(proof_state.context) > 0:
-                hyp_node = proof_state.context[0]
-                preds += [TacticPredictionGraph(t, [hyp_node], 0.5) for t in oneArg]
-            for d in cool_definitions:
-                preds += [TacticPredictionGraph(t, [d], 0.5) for t in oneArg]
-            prediction_requests.send(TacticPredictionsGraph(preds))
-        elif isinstance(msg, CheckAlignmentMessage):
-            unknown_definitions = list(context.definitions.definitions())
-            unknown_tactics = [t.ident for t in context.tactics]
-            alignment = CheckAlignmentResponse(unknown_definitions, unknown_tactics)
-            prediction_requests.send(alignment)
-        elif isinstance(msg, GlobalContextMessage):
-            graph_initialize_loop(msg, level + 1)
-        else:
-            raise Exception("Capnp protocol error")
 
 def run_session(args, capnp_socket, record_file, generate_args):
     messages_generator = capnp_message_generator(capnp_socket, record_file)
-    if args.mode == 'text':
-        print('Python server running in text mode')
-        text_prediction_loop(messages_generator, generate_args)
-    elif args.mode == 'graph':
-        print('Python server running in graph mode')
-        graph_initialize_loop(messages_generator, 0)
-    else:
-        raise Exception("The 'mode' argument needs to be either 'text' or 'graph'")
+
+    print('Python server running in text mode')
+    text_prediction_loop(messages_generator, generate_args)
+
 
 def main():
     sys.setrecursionlimit(10000)
@@ -215,11 +178,7 @@ def main():
         description = "Text2tac python server capable of communicating with Coq through Tactician's 'synth' tactic",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('mode',
-                        type=str,
-                        choices=['graph', 'text'],
-                        default='text',
-                        help='"graph" to communicate in graph-mode, "text" to communicate in text-mode')
+
     parser.add_argument('--tcp',
                         type = int,
                         default = 0,
@@ -257,9 +216,6 @@ def main():
 
 
     args = parser.parse_args()
-
-    if args.mode == "graph":
-        raise ValueError("This code is meant to be used as a text server.")
 
     model_location = args.model
     tokenizer_location = args.tokenizer
