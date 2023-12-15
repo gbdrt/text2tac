@@ -250,18 +250,25 @@ def main():
         record_context = contextlib.nullcontext()
     with record_context as record_file:
         if args.tcp != 0:
-            class Handler(socketserver.BaseRequestHandler):
-                def handle(self):
-                    run_session(args, self.request, record_file, generate_args)
-            class Server(socketserver.ThreadingTCPServer):
-                def __init__(self, *kwargs):
-                    self.allow_reuse_address = True
-                    self.daemon_threads = True
-                    super().__init__(*kwargs)
             addr = ('localhost', args.tcp)
-            with Server(addr, Handler) as server:
-                server.daemon_threads = True
-                server.serve_forever()
+            if socket.has_dualstack_ipv6():
+                try:
+                    server_sock = socket.create_server(
+                        addr,
+                        family=socket.AF_INET6, dualstack_ipv6=True
+                    )
+                except OSError:
+                    server_sock = socket.create_server(addr)
+            else:
+                server_sock = socket.create_server(addr)
+            try:
+                server_sock.listen(1)
+                while True:
+                    capnp_socket, remote_addr = server_sock.accept()
+                    run_session(args, capnp_socket, record_file, generate_args)
+                    # predict_server.start_prediction_loop(capnp_socket, record_file)
+            finally:
+                server_sock.close()
         else:
             capnp_socket = socket.socket(fileno=sys.stdin.fileno())
             run_session(args, capnp_socket, record_file, generate_args)
