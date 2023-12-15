@@ -13,7 +13,7 @@ setup(
                   ]},
     license='MIT',
     install_requires=[
-        'pytactician',
+        'pytactician==15.1',
         'tqdm',
         'numpy',
         'fire',
