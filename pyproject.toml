@@ -31,7 +31,7 @@ dependencies = [
 ]
 
 [project.scripts]
-my-client = "text2tac-server=text2tac.transformer.predict_server:main"
+text2tac-server = "text2tac.transformer.predict_server:main"
 
 
 
