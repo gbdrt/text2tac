@@ -10,7 +10,6 @@ setup(
     entry_points={'console_scripts':                  [
                       'text2tac-server=text2tac.transformer.predict_server:main',
                   ]},
-    license='MIT',
     install_requires=[
         'pytactician==15.1',
         'tqdm',
