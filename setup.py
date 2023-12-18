@@ -1,6 +1,5 @@
 from setuptools import find_packages, setup
 
-
 setup(
     name='text2tac',
     packages=find_packages(),  # find all packages in the project instead of listing them 1-by-1
