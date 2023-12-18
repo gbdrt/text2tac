@@ -10,7 +10,7 @@ authors = [
 ]
 description = "text2tac converts text to actions"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.9, <3.11"
 dependencies = [
         'pytactician==15.1',
         'tqdm',
@@ -29,6 +29,7 @@ dependencies = [
         'numpy',
         'pandas',
 ]
+license = {file = "LICENSE"}
 
 [project.scripts]
 text2tac-server = "text2tac.transformer.predict_server:main"
