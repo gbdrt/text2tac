@@ -9,3 +9,6 @@ The python `text2tac` package can be installed with `pip install` in a standard 
 
 - See `text2tac-server'
 
+# preparations
+For training, see the text2tac/transformer folder.
+
