@@ -3,7 +3,7 @@ text2tac converts text to tactics
 
 # installation 
 
-The python `text2tac` package can be installed with `pip install` in a standard way from git repo (we aren't yet on pypi.org). For developers a recommended way is `pip install -e .` from the cloned source repository which allows to develop directly on the source of the installed package. Our key (recommended/tested) pip dependencies are `python>=3.9`.
+The python `text2tac` package can be installed with `pip install` in a standard way from git repo (we aren't yet on pypi.org). For developers a recommended way is `pip install -e .` from the cloned source repository which allows to develop directly on the source of the installed package. Our key (recommended/tested) pip dependencies are `python>=3.9`. Note that we tested with 3.10, and 3.11 and on may break the dependencies. 
 
 # entry-points
 
