@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "text2tac"
-version = "0.1"
+version = "1.0"
 authors = [
   { name="Jelle Piepenbrock, Lasse Blaauwbroek, Mirek Olsak, Vasily Pestun, Jason Rute, Fidel I. Schaposnik Massolo"},
 ]
 description = "text2tac converts text to actions"
 readme = "README.md"
-requires-python = ">=3.9, <3.11"
+requires-python = ">3.9, <3.11"
 dependencies = [
         'pytactician==15.1',
         'tqdm',
