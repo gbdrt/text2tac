@@ -1,5 +1,5 @@
 # text2tac
-text2tac converts text to tactics. It lets the Coq proof assistant ask a tranformer-type neural network for tactic suggestions. 
+text2tac converts text to tactics. It lets the Coq proof assistant ask a transformer-type neural network for tactic suggestions. 
 
 # Links
 
