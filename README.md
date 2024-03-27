@@ -16,3 +16,43 @@ The python `text2tac` package can be installed with `pip install` in a standard 
 # Preparations
 For training, see the text2tac/transformer folder.
 
+## Notes
+
+```bash
+cd text2tac/transformers
+conda activate Tactician
+bash call_t5.sh             # Train
+```
+
+Then start the server to communicate with coq:
+
+```
+python predict_server.py --tcp 8001 --model ./path/to/checkpoint
+```
+
+In parallel start SSH tunneling with port 8001 (hostname may be different from gpu001)
+```
+ssh -N -L 8001:gpu001:8001 cleps -v
+```
+
+You can then start a tactician coqtop
+
+```
+tactician exec coqtop
+```
+
+and run the following commmand.
+
+```
+From Tactician Require Import Ltac1.
+Set Tactician Neural Textmode.
+Set Tactician Neural Server "localhost:8001".
+```
+
+You can nown use `Suggest` and `synth` with you model
+
+```
+Goal True.
+Suggest.
+synth.
+```

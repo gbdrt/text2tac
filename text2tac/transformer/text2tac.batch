@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#SBATCH --job-name=text2tac      # create a short name for your job
+#SBATCH --nodes=1                # node count
+#SBATCH --ntasks=1               # total number of tasks across all nodes
+#SBATCH --cpus-per-task=8        # cpu-cores per task (>1 if multi-threaded tasks)
+#SBATCH --partition=gpu          # Name of the partition
+#SBATCH --gres=gpu:a100:1        # GPU nodes are only available in gpu partition
+#SBATCH --hint=multithread       # we get physical cores not logical
+#SBATCH --time=10:00:00          # total run time limit (HH:MM:SS)
+#SBATCH --output=%x_%j.out       # output file name
+
+echo "### Running $SLURM_JOB_NAME ###"
+
+set -x
+cd ${SLURM_SUBMIT_DIR}
+
+module purge
+#module load cuda/11.4
+
+source /home/$USER/.bashrc
+conda activate Tactician
+
+bash call_flant5.sh
